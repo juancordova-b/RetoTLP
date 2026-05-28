@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+staticfiles/
+media/
+
+# Entorno
+.env
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+
+# Docker volúmenes locales (si aplica)
+postgres_data/
+
+# Documentación
+docs/
+README.md
+readme.md
+README

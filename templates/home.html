@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}FairBet Lab — Inicio{% endblock %}
+{% block content %}
+<main style="max-width:720px;margin:2rem auto;font-family:sans-serif;">
+  <h1>FairBet Lab</h1>
+  <p>Simulador educativo de apuestas con <strong>moneda virtual</strong>.</p>
+  <ul>
+    <li><a href="/api/health/">Estado del API</a></li>
+    <li><a href="/api/">Eventos (JSON)</a></li>
+    <li><a href="/admin/">Panel administrador</a></li>
+  </ul>
+  <p style="background:#fff3cd;padding:1rem;border-radius:8px;">
+    <strong>Juego responsable:</strong> usa límites de recarga y apuesta solo con fines educativos.
+  </p>
+</main>
+{% endblock %}
