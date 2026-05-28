@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Mi cuenta — ArenaBet Perú{% endblock %}
+{% block content %}
+<section class="account-hero">
+  <div>
+    <p class="hero-badge">Área personal</p>
+    <h1>Mi cuenta</h1>
+    <p>Gestiona tu perfil, límites de juego responsable y acceso a tu cartera virtual.</p>
+  </div>
+</section>
+
+<div id="cuenta-alerts"></div>
+
+<div id="panel-sesion" class="grid-2">
+  <section class="card auth-card">
+    <span class="auth-kicker">Ya tengo cuenta</span>
+    <h2>Iniciar sesión</h2>
+    <p class="form-hint">Entra para recargar, apostar y consultar tus boletos.</p>
+    <form id="form-login">
+      <div class="form-group">
+        <label for="login-username">Usuario</label>
+        <input id="login-username" name="username" type="text" required autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label for="login-password">Contraseña</label>
+        <input id="login-password" name="password" type="password" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+    </form>
+  </section>
+
+  <section class="card auth-card auth-card-accent">
+    <span class="auth-kicker">Nuevo jugador</span>
+    <h2>Registrarse</h2>
+    <p class="form-hint">Crea una cuenta demo con DNI y mayoría de edad.</p>
+    <form id="form-registro">
+      <div class="form-group">
+        <label for="reg-username">Usuario</label>
+        <input id="reg-username" name="username" type="text" required>
+      </div>
+      <div class="form-group">
+        <label for="reg-email">Correo</label>
+        <input id="reg-email" name="email" type="email" required>
+      </div>
+      <div class="form-group">
+        <label for="reg-password">Contraseña</label>
+        <input id="reg-password" name="password" type="password" minlength="8" required>
+        <p class="form-hint">Mínimo 8 caracteres.</p>
+      </div>
+      <div class="form-group">
+        <label for="reg-dni">DNI (8 dígitos)</label>
+        <input id="reg-dni" name="dni" type="text" maxlength="8" pattern="[0-9]{8}" required>
+      </div>
+      <div class="form-group">
+        <label for="reg-dni-dv">Dígito verificador del DNI</label>
+        <input id="reg-dni-dv" name="dni_digito_verificador" type="text" maxlength="1" pattern="[0-9]" required>
+        <p class="form-hint">Es el dígito adicional que aparece en la tarjeta del DNI.</p>
+      </div>
+      <div class="form-group">
+        <label for="reg-fecha">Fecha de nacimiento</label>
+        <input id="reg-fecha" name="fecha_nacimiento" type="date" required>
+        <p class="form-hint">Debes ser mayor de 18 años.</p>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Crear cuenta</button>
+    </form>
+  </section>
+</div>
+
+<section id="panel-perfil" class="hidden">
+  <div class="account-grid">
+    <article class="card account-summary-card">
+      <div class="account-avatar" id="perfil-avatar">AP</div>
+      <div>
+        <p class="form-hint">Jugador</p>
+        <h2 id="perfil-username">—</h2>
+        <p id="perfil-email" class="form-hint">—</p>
+      </div>
+      <div id="perfil-status" class="account-status"></div>
+    </article>
+
+    <article class="card account-actions-card">
+      <h2>Acciones rápidas</h2>
+      <div class="account-action-buttons">
+        <a href="/cartera/" class="btn btn-primary">Ir a cartera</a>
+        <a href="/eventos/" class="btn btn-secondary">Ver eventos</a>
+        <a href="/apuestas/" class="btn btn-outline">Mis apuestas</a>
+      </div>
+    </article>
+  </div>
+
+  <section class="card">
+    <h2>Resumen de cuenta</h2>
+    <div id="perfil-content" class="account-stats"></div>
+  </section>
+
+  <section class="card">
+    <h2>Verificación KYC</h2>
+    <div id="kyc-alert" class="alert alert-warning">
+    Para apostar debes estar <strong>verificado</strong>. En la demo puedes simularlo con el botón siguiente
+    (en producción lo haría un administrador).
+    </div>
+    <button type="button" id="btn-verify-kyc" class="btn btn-primary">
+      Verificar KYC (demo)
+    </button>
+  </section>
+
+  <section class="card responsible-card">
+    <h2>Juego responsable</h2>
+    <p class="form-hint">Controla tu actividad con límites y autoexclusión. En una plataforma real estos controles son obligatorios.</p>
+    <div class="responsible-actions">
+      <button type="button" class="btn btn-outline btn-sm btn-exclude" data-dias="7">Autoexcluir 7 días</button>
+      <button type="button" class="btn btn-outline btn-sm btn-exclude" data-dias="30">30 días</button>
+      <button type="button" class="btn btn-outline btn-sm btn-exclude" data-dias="90">90 días</button>
+      <button type="button" class="btn btn-outline btn-sm btn-exclude" data-indefinido="1">Indefinida</button>
+    </div>
+
+    <form id="form-limite" class="limit-form">
+      <div class="form-group">
+        <label for="limite-diario">Límite diario de recarga (S/)</label>
+        <input id="limite-diario" type="number" step="0.01" min="1" required>
+      </div>
+      <div class="form-group">
+        <label for="limite-semanal">Límite semanal de recarga (S/)</label>
+        <input id="limite-semanal" type="number" step="0.01" min="1" required>
+      </div>
+      <div class="form-group">
+        <label for="limite-mensual">Límite mensual de recarga (S/)</label>
+        <input id="limite-mensual" type="number" step="0.01" min="1" required>
+        <p class="form-hint">Bajar un límite es inmediato. Subirlo tarda 24 horas.</p>
+      </div>
+      <div id="limite-alert"></div>
+      <button type="submit" class="btn btn-secondary">Actualizar límites</button>
+    </form>
+  </section>
+</section>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/fairbet-cuenta.js' %}?v=5"></script>
+{% endblock %}
