@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Mis apuestas — FairBet Lab{% endblock %}
+{% block content %}
+<h1 class="page-title">Mis apuestas</h1>
+<p class="page-lead">Apuestas simples y combinadas. Montos en soles virtuales (S/).</p>
+
+<div class="alert alert-warning">
+  <strong>Consumo responsable:</strong> el cash-out cierra la apuesta antes del final del partido.
+</div>
+
+<div id="apuestas-alerts"></div>
+
+<section class="card">
+  <h2>Apuestas simples</h2>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Evento</th>
+          <th>Selección</th>
+          <th>Monto</th>
+          <th>Cuota</th>
+          <th>Estado</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody id="apuestas-tbody"></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Apuestas combinadas</h2>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Cuota comb.</th>
+          <th>Monto</th>
+          <th>Estado</th>
+          <th>Piernas</th>
+        </tr>
+      </thead>
+      <tbody id="combinadas-tbody"></tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/fairbet-apuestas.js' %}"></script>
+{% endblock %}

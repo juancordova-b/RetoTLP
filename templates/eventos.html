@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Partidos y cuotas — ArenaBet Perú{% endblock %}
+{% block content %}
+<h1 class="page-title">Partidos y cuotas</h1>
+<p class="page-lead">Mira eventos como invitado. Inicia sesión solo cuando quieras armar tu boleto con soles virtuales.</p>
+
+<ol class="steps-guide">
+  <li id="step-1" class="steps-guide-item">
+    <span class="steps-num">1</span>
+    <div>
+      <strong>Entra y recarga</strong>
+      <span class="form-hint">Solo necesitas saldo cuando ya vas a apostar.</span>
+    </div>
+  </li>
+  <li id="step-2" class="steps-guide-item">
+    <span class="steps-num">2</span>
+    <div>
+      <strong>Elige una cuota</strong>
+      <span class="form-hint">Clic en Local, Empate, Visitante u otro mercado.</span>
+    </div>
+  </li>
+  <li id="step-3" class="steps-guide-item">
+    <span class="steps-num">3</span>
+    <div>
+      <strong>Confirma el monto</strong>
+      <span class="form-hint">Revisa y pulsa «Confirmar apuesta».</span>
+    </div>
+  </li>
+</ol>
+
+<div id="saldo-banner" class="saldo-banner hidden">
+  <div>
+    <span>Tu saldo: <strong id="saldo-eventos" class="monto-destacado">—</strong></span>
+    <p id="saldo-aviso" class="form-hint hidden"></p>
+  </div>
+  <a href="/cartera/" class="btn btn-primary btn-sm" id="btn-recargar">Recargar</a>
+</div>
+
+<div id="eventos-alerts"></div>
+
+<div class="mode-tabs" role="tablist">
+  <button type="button" class="mode-tab active" id="tab-simple" data-mode="simple">
+    Apuesta simple
+    <span class="mode-tab-hint">Un partido, una selección</span>
+  </button>
+  <button type="button" class="mode-tab" id="tab-combi" data-mode="combi">
+    Apuesta combinada
+    <span class="mode-tab-hint">Varios mercados (mín. 2), mismo partido OK</span>
+  </button>
+</div>
+
+<div class="events-layout">
+  <div class="events-main">
+    <div id="eventos-list" class="event-list"></div>
+  </div>
+
+  <aside class="bet-slip card" id="bet-slip">
+    <h2 class="bet-slip-title">Tu boleto</h2>
+    <p id="slip-modo-text" class="form-hint">Modo simple: haz clic en una cuota para apostar.</p>
+
+    <div id="slip-simple" class="slip-panel">
+      <p class="slip-empty">Aún no elegiste ninguna cuota.<br>Selecciona una opción en un partido.</p>
+    </div>
+
+    <div id="slip-combi" class="slip-panel hidden">
+      <ul id="combi-legs" class="combi-legs"></ul>
+      <p id="combi-empty" class="slip-empty">Añade al menos 2 selecciones (pueden ser del mismo partido).</p>
+      <form id="form-combinada" class="hidden">
+        <div class="slip-summary">
+          <div><span>Cuota total</span><strong id="combi-odds">—</strong></div>
+          <div id="combi-payout-row" class="hidden">
+            <span>Ganancia potencial</span><strong id="combi-payout" class="monto-destacado">—</strong>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="stake-combi">Monto a apostar (S/)</label>
+          <input id="stake-combi" type="number" step="0.01" min="1" value="15.00">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Confirmar combinada</button>
+        <button type="button" id="btn-limpiar-combi" class="btn btn-outline btn-block">Vaciar boleto</button>
+      </form>
+    </div>
+  </aside>
+</div>
+
+<div class="alert alert-info" style="margin-top: 1rem;">
+  <strong>Juego responsable:</strong> moneda virtual sin valor real. Si la cuota cambia al confirmar, te pediremos reconfirmar.
+</div>
+
+<div id="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true">
+  <div class="modal">
+    <h3>Confirmar apuesta</h3>
+    <div class="modal-resumen">
+      <div class="modal-row"><span>Partido</span><strong id="modal-partido"></strong></div>
+      <div class="modal-row"><span>Tu elección</span><strong id="modal-seleccion"></strong></div>
+      <div class="modal-row"><span>Cuota</span><strong id="modal-cuota"></strong></div>
+      <div class="modal-row payout-row"><span>Si ganas recibes</span><strong id="modal-payout" class="monto-destacado">—</strong></div>
+    </div>
+    <div id="modal-alerts"></div>
+    <form id="form-apuesta">
+      <div class="form-group">
+        <label for="stake-input">¿Cuánto apuestas? (S/)</label>
+        <input id="stake-input" type="number" step="0.01" min="1" value="10.00" required>
+        <p class="form-hint">Mínimo S/ 1.00 · máximo S/ 500.00</p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="btn-cerrar-modal" class="btn btn-secondary">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Confirmar apuesta</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/fairbet-eventos.js' %}?v=6"></script>
+{% endblock %}
