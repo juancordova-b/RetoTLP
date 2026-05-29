@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Cartera — FairBet Lab{% endblock %}
+{% block content %}
+<h1 class="page-title">Tu cartera</h1>
+<p class="page-lead">Recarga soles virtuales (S/) para apostar en Eventos. Sin dinero real.</p>
+
+<div class="alert alert-info">
+  <strong>Paso 1 de la demo:</strong> recarga abajo. Luego ve a
+  <a href="/eventos/">Eventos</a> para apostar.
+</div>
+
+<div id="cartera-alerts"></div>
+
+<div class="grid-2">
+  <section class="card card-highlight">
+    <h2>Saldo disponible</h2>
+    <p class="saldo-grande">
+      <span id="saldo-display" class="monto-destacado">—</span>
+    </p>
+    <p class="form-hint" style="margin-top: 0.75rem;">
+      El saldo se calcula sumando débitos y créditos en la contabilidad simulada.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>Recarga simulada</h2>
+    <form id="form-deposito">
+      <div class="form-group">
+        <label for="monto-deposito">Monto (S/)</label>
+        <input id="monto-deposito" name="monto" type="number" step="0.01" min="0.01" value="100.00" required>
+        <p class="form-hint">Respeta límites diario, semanal y mensual de tu perfil.</p>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Recargar</button>
+      <p class="form-hint" style="margin-top: 0.75rem; text-align: center;">
+        Después de recargar → <a href="/eventos/">Ir a Eventos</a>
+      </p>
+    </form>
+  </section>
+</div>
+
+<section class="card">
+  <h2>Bono de bienvenida (Nivel 3)</h2>
+  <p class="form-hint">
+    Recibe bono y completa rollover antes de retirar.
+  </p>
+  <div id="bonus-status" class="form-hint">Cargando estado del bono…</div>
+  <button id="btn-bonus-claim" type="button" class="btn btn-primary btn-sm">Activar bono</button>
+</section>
+
+<section class="card">
+  <h2>Retiro simulado</h2>
+  <form id="form-retiro">
+    <div class="form-group">
+      <label for="monto-retiro">Monto a retirar (S/)</label>
+      <input id="monto-retiro" name="monto" type="number" step="0.01" min="0.01" value="25.00" required>
+      <p class="form-hint">Devuelve saldo de tu cartera a la casa (sin valor real).</p>
+    </div>
+    <button type="submit" class="btn btn-secondary btn-block">Retirar</button>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Transferir a otro usuario</h2>
+  <p class="form-hint">Envía soles virtuales a un compañero con cuenta verificada (transferencia interna P2P).</p>
+  <form id="form-transferencia">
+    <div class="form-group">
+      <label for="transfer-destino">Usuario destino</label>
+      <input id="transfer-destino" name="destino_username" type="text" required placeholder="nombre de usuario">
+    </div>
+    <div class="form-group">
+      <label for="transfer-monto">Monto (S/)</label>
+      <input id="transfer-monto" name="monto" type="number" step="0.01" min="0.01" value="10.00" required>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Enviar transferencia</button>
+  </form>
+</section>
+
+<div class="alert alert-info">
+  <strong>Juego responsable:</strong> establece límites personales y usa esta plataforma solo con fines educativos.
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/fairbet-cartera.js' %}"></script>
+{% endblock %}
