@@ -23,9 +23,3 @@ Thumbs.db
 
 # Docker volúmenes locales (si aplica)
 postgres_data/
-
-# Documentación
-docs/
-README.md
-readme.md
-README
